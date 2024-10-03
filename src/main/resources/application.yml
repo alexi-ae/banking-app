@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: banking
+  datasource:
+    url: jdbc:h2:mem:testdb  # Puedes cambiar 'testdb' a tu nombre de base de datos
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+    dialect: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+
+security:
+  jwt:
+    time: 1000
+    secret: bankingapp
+  get:
+    token:
+      uri: /authenticate
+
+
+
+
+
