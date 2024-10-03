@@ -31,7 +31,7 @@ public class AuthController {
   private UserDetailsService userDetailsService;
 
   @PostMapping("/login")
-  public Object createAuthenticationToken(@RequestBody JwtRequest authenticationRequest)
+  public JwtResponse createAuthenticationToken(@RequestBody JwtRequest authenticationRequest)
       throws Exception {
     authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
