@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -23,17 +24,14 @@ public class User {
   @Column(name = "id")
   private Long id;
 
-  @Column(name = "first_name", nullable = false, length = 100)
-  private String firstName;
-
-  @Column(name = "last_name", length = 80)
-  private String lastName;
-
   @Column(name = "email", unique = true, nullable = false, length = 100)
   private String email;
 
   @Column(name = "password", nullable = false, length = 50)
   private String password;
+
+  @Column(name = "role")
+  private String role;
 
   @Column(name = "created_at", updatable = false)
   private LocalDateTime createdAt;
@@ -50,4 +48,7 @@ public class User {
   protected void onUpdate() {
     updatedAt = LocalDateTime.now();
   }
+
+  @OneToOne(mappedBy = "user")
+  private Customer customer;
 }
