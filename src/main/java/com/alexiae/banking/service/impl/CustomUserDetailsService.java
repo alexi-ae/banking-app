@@ -4,6 +4,7 @@ import com.alexiae.banking.model.dto.UserDto;
 import com.alexiae.banking.service.UserService;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,15 +25,11 @@ public class CustomUserDetailsService implements UserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     UserDto user = userService.findByUsername(username);
-
-    if (user == null) {
+    if (Objects.isNull(user)) {
       throw new UsernameNotFoundException("Usuario no encontrado: " + username);
     }
-
     List<GrantedAuthority> roles = new ArrayList<>();
-
     roles.add(new SimpleGrantedAuthority("USER"));
-
     PasswordEncoder bcrypt = new BCryptPasswordEncoder();
     return new User(user.getEmail(), bcrypt.encode(user.getPassword()), roles);
   }

@@ -32,8 +32,8 @@ public class UserServiceImpl extends CRUDImpl<User, Long> implements UserService
     return UserDto.builder()
         .id(user.getId())
         .email(user.getEmail())
-        .firstName(user.getFirstName())
-        .lastName(user.getLastName())
+        .password(user.getPassword())
+        .authorities(user.getAuthorities())
         .build();
   }
 }

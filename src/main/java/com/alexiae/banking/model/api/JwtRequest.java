@@ -1,4 +1,4 @@
-package com.alexiae.banking.config.security;
+package com.alexiae.banking.model.api;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

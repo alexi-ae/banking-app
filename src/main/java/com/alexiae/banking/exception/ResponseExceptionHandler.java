@@ -51,6 +51,15 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
     return new ResponseEntity<ExceptionResponseCustom>(exc, HttpStatus.NOT_FOUND);
   }
 
+  @ExceptionHandler(UserDuplicateException.class)
+  public final ResponseEntity<ExceptionResponseCustom> userDuplicateException(
+      UserDuplicateException ex, WebRequest request) {
+    ExceptionResponseCustom exc = new ExceptionResponseCustom(LocalDateTime.now(),
+        String.valueOf(HttpStatus.BAD_REQUEST), ex.getMessage(), var.USER_DUPLICATE,
+        var.USER_DUPLICATE_MSG);
+    return new ResponseEntity<ExceptionResponseCustom>(exc, HttpStatus.BAD_REQUEST);
+  }
+
   @ExceptionHandler(IllegalArgumentException.class)
   public final ResponseEntity<ExceptionResponseCustom> IllegalArgumentException(
       IllegalArgumentException ex, WebRequest request) {

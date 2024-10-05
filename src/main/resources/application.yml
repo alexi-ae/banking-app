@@ -22,7 +22,7 @@ spring:
 security:
   jwt:
     time: 1000
-    secret: bankingapp
+    secret: 33743677397A24432646294A404D635166546A576E5A7234753778214125442A
   get:
     token:
       uri: /authenticate
