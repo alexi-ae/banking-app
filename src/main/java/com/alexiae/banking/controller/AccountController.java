@@ -1,7 +1,8 @@
 package com.alexiae.banking.controller;
 
-import com.alexiae.banking.facede.CustomerFacade;
-import com.alexiae.banking.model.api.CustomerInfoResponse;
+import com.alexiae.banking.facede.AccountFacade;
+import com.alexiae.banking.model.api.AccountResponse;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,16 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/customers")
-public class CustomerController {
+@RequestMapping("/accounts")
+public class AccountController {
 
   @Autowired
-  private CustomerFacade customerFacade;
+  private AccountFacade accountFacade;
 
-  @PostMapping("/info")
-  public CustomerInfoResponse customerIndo(@RequestAttribute("email") String email) {
+  @PostMapping
+  public List<AccountResponse> accounts(@RequestAttribute("email") String email) {
 
-    return customerFacade.customerInfo(email);
+    return accountFacade.getAccounts(email);
   }
 
 

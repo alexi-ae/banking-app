@@ -59,6 +59,9 @@ public class Customer {
   @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private ExtraInfo extraInfo;
 
+  @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<Account> accounts;
+
   @OneToOne
   @JoinColumn(name = "user_id")
   private User user;

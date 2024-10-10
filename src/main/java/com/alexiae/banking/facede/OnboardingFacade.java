@@ -50,6 +50,9 @@ public class OnboardingFacade {
   private PasswordEncoder passwordEncoder;
 
   @Autowired
+  private AccountFacade accountFacade;
+
+  @Autowired
   private JwtService jwtService;
 
   public void register(CreateRequest request) {
@@ -185,7 +188,8 @@ public class OnboardingFacade {
     Customer customer = customerService.findByUsername(email);
     customer.setNextState(OnboardingStatus.HOME);
     customer.setStatus(CustomerStatus.APPROVED);
-    customerService.update(customer);
+    customer = customerService.update(customer);
+    accountFacade.createAccount(customer);
     return OnboardingResponse.builder().nextStep(customer.getNextState().name()).build();
   }
 }
