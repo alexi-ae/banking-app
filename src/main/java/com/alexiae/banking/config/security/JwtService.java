@@ -10,6 +10,7 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,6 +35,8 @@ public class JwtService {
     claims.put("id", user.getId());
     claims.put("email", user.getEmail());
     claims.put("roles", user.getAuthorities());
+    claims.put("state",
+        Objects.nonNull(user.getCustomer()) ? user.getCustomer().getStatus() : "PENDING");
     return createToken(claims, user.getEmail());
   }
 
@@ -44,6 +47,11 @@ public class JwtService {
   public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
     final Claims claims = getAllClaimsFromToken(token);
     return claimsResolver.apply(claims);
+  }
+
+  public String getCustomerState(String token) {
+    final Claims claims = getAllClaimsFromToken(token);
+    return claims.get("state").toString();
   }
 
   private Claims getAllClaimsFromToken(String token) {
