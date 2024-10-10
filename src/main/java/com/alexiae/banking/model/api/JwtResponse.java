@@ -1,14 +1,21 @@
 package com.alexiae.banking.model.api;
 
+import com.alexiae.banking.model.enums.OnboardingStatus;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+@Builder
+@Getter
+@Setter
+@AllArgsConstructor
 public class JwtResponse {
 
-  private final String jwttoken;
+  private String jwttoken;
 
-  public JwtResponse(String jwttoken) {
-    this.jwttoken = jwttoken;
-  }
+  private String nextStep;
 
-  public String getJwttoken() {
-    return jwttoken;
+  public JwtResponse(String token, OnboardingStatus nextState) {
   }
 }

@@ -1,8 +1,8 @@
 package com.alexiae.banking.facede;
 
+import com.alexiae.banking.config.security.JwtService;
 import com.alexiae.banking.model.api.JwtRequest;
 import com.alexiae.banking.model.api.JwtResponse;
-import com.alexiae.banking.config.security.JwtService;
 import com.alexiae.banking.model.entity.Customer;
 import com.alexiae.banking.service.CustomerService;
 import lombok.SneakyThrows;
@@ -33,7 +33,10 @@ public class AuthFacade {
     Customer customer = customerService.findByUsername(authenticationRequest.getUsername());
     String token = jwtTokenUtil.generateToken(customer.getUser());
 
-    return new JwtResponse(token);
+    return JwtResponse.builder()
+        .jwttoken(token)
+        .nextStep(customer.getNextState().name())
+        .build();
   }
 
   private void authenticate(String username, String password) throws Exception {
