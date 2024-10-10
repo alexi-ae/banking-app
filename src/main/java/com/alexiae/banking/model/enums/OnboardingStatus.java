@@ -3,10 +3,11 @@ package com.alexiae.banking.model.enums;
 public enum OnboardingStatus {
   CREATED,
   CONTACT,
-  STAFF,
-  ID,
-  DOCUMENTS,
-  EXTRA,
+  CONTACT_VALIDATE,
+  PERSONAL_INFO,
+  IDENTITY_INFO,
+  UPLOAD_DOCUMENT,
+  EXTRA_INFO,
   PROCESSING,
-  APPROVED
+  COMPLETED
 }

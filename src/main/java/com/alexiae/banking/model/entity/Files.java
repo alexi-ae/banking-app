@@ -11,7 +11,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "files")
 public class Files {
@@ -25,8 +29,4 @@ public class Files {
   private FileType type;
 
   private String imagePath;
-
-  @OneToOne
-  @JoinColumn(name = "customer_id")
-  private Customer customer;
 }
