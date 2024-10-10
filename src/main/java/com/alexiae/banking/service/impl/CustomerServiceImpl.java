@@ -17,4 +17,9 @@ public class CustomerServiceImpl extends CRUDImpl<Customer, Long> implements Cus
   protected GenericRepository<Customer, Long> getRepository() {
     return repository;
   }
+
+  @Override
+  public Customer findByUsername(String email) {
+    return repository.findCustomerByUserEmail(email);
+  }
 }
