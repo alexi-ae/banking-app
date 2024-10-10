@@ -12,9 +12,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -51,8 +53,8 @@ public class Customer {
   @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private Document document;
 
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private Files files;
+  @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+  private List<Files> files;
 
   @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private ExtraInfo extraInfo;

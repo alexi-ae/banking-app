@@ -9,5 +9,5 @@ public enum OnboardingStatus {
   UPLOAD_DOCUMENT,
   EXTRA_INFO,
   PROCESSING,
-  COMPLETED
+  HOME
 }

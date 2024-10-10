@@ -23,6 +23,8 @@ import com.alexiae.banking.model.enums.Role;
 import com.alexiae.banking.service.ContactService;
 import com.alexiae.banking.service.CustomerService;
 import com.alexiae.banking.service.UserService;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -147,10 +149,14 @@ public class OnboardingFacade {
     return OnboardingResponse.builder().nextStep(customer.getNextState().name()).build();
   }
 
-  private Files toFiles(String urlUpload, Customer customer) {
-    Files files = Objects.nonNull(customer.getFiles()) ? customer.getFiles() : new Files();
-    files.setType(FileType.IDENTIFICATION);
-    files.setImagePath(urlUpload);
+  private List<Files> toFiles(String urlUpload, Customer customer) {
+    List<Files> files =
+        Objects.nonNull(customer.getFiles()) ? customer.getFiles() : new ArrayList<>();
+    Files entity = new Files();
+    entity.setType(FileType.IDENTIFICATION);
+    entity.setImagePath(urlUpload);
+    entity.setCustomer(customer);
+    files.add(entity);
     return files;
   }
 
@@ -177,8 +183,9 @@ public class OnboardingFacade {
 
   public OnboardingResponse processingInfo(String email) {
     Customer customer = customerService.findByUsername(email);
-    customer.setNextState(OnboardingStatus.COMPLETED);
+    customer.setNextState(OnboardingStatus.HOME);
     customer.setStatus(CustomerStatus.APPROVED);
+    customerService.update(customer);
     return OnboardingResponse.builder().nextStep(customer.getNextState().name()).build();
   }
 }
