@@ -1,8 +1,8 @@
 package com.alexiae.banking.facede;
 
 import com.alexiae.banking.model.api.CustomerInfoResponse;
-import com.alexiae.banking.model.api.ExtraInfoDto;
-import com.alexiae.banking.model.api.FileDto;
+import com.alexiae.banking.model.dto.ExtraInfoDto;
+import com.alexiae.banking.model.dto.FileDto;
 import com.alexiae.banking.model.dto.ContactDto;
 import com.alexiae.banking.model.dto.DocumentDto;
 import com.alexiae.banking.model.entity.Contact;

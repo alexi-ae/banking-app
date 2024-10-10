@@ -1,4 +1,4 @@
-package com.alexiae.banking.model.api;
+package com.alexiae.banking.model.dto;
 
 import lombok.Builder;
 import lombok.Getter;

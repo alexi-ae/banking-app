@@ -1,4 +1,4 @@
-package com.alexiae.banking.model.api;
+package com.alexiae.banking.model.dto;
 
 import com.alexiae.banking.model.enums.FileType;
 import lombok.Builder;

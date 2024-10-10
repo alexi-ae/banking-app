@@ -2,6 +2,8 @@ package com.alexiae.banking.model.api;
 
 import com.alexiae.banking.model.dto.ContactDto;
 import com.alexiae.banking.model.dto.DocumentDto;
+import com.alexiae.banking.model.dto.ExtraInfoDto;
+import com.alexiae.banking.model.dto.FileDto;
 import com.alexiae.banking.model.enums.CustomerStatus;
 import com.alexiae.banking.model.enums.OnboardingStatus;
 import java.time.LocalDate;
