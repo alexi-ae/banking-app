@@ -38,7 +38,6 @@ public class Account {
   @Column(name = "number_cci", nullable = false, unique = true)
   private String numberCci;
 
-
   @Column(name = "is_main")
   private boolean isMain;
 

@@ -23,4 +23,10 @@ public class AccountServiceImpl extends CRUDImpl<Account, Long> implements Accou
 
     return accountRepository.existsByNumber(accountNumber);
   }
+
+  @Override
+  public Account getByAccountNumber(String accountNumber) {
+    return accountRepository.getAccountByNumber(accountNumber)
+        .orElseThrow(() -> new RuntimeException("Cuenta no encontrada"));
+  }
 }

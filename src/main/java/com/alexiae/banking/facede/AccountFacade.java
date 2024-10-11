@@ -33,7 +33,8 @@ public class AccountFacade {
     account.setHolder(customer.getFirstName() + " " + customer.getLastName());
     account.setType(AccountType.AHORROS);
     account.setCurrency(AccountCurrency.SOLES);
-    account.setCurrentBalance(BigDecimal.ZERO);
+    //account.setCurrentBalance(BigDecimal.ZERO);
+    account.setCurrentBalance(BigDecimal.valueOf(500.00));
     account.setOpeningDate(new Date());
     account.setStatus(AccountStatus.ACTIVE);
     account.setDailyTransferLimit(BigDecimal.valueOf(2000.00));

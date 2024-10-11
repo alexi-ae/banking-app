@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import java.math.BigDecimal;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
@@ -37,6 +38,8 @@ public class JwtService {
     claims.put("roles", user.getAuthorities());
     claims.put("state",
         Objects.nonNull(user.getCustomer()) ? user.getCustomer().getStatus() : "PENDING");
+    claims.put("customerId",
+        Objects.nonNull(user.getCustomer()) ? user.getCustomer().getId() : BigDecimal.ZERO);
     return createToken(claims, user.getEmail());
   }
 
@@ -52,6 +55,11 @@ public class JwtService {
   public String getCustomerState(String token) {
     final Claims claims = getAllClaimsFromToken(token);
     return claims.get("state").toString();
+  }
+
+  public String getCustomerId(String token) {
+    final Claims claims = getAllClaimsFromToken(token);
+    return claims.get("customerId").toString();
   }
 
   private Claims getAllClaimsFromToken(String token) {

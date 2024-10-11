@@ -40,6 +40,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       String userName = jwtService.getUsernameFromToken(token);
       request.setAttribute("email", userName);
       String state = jwtService.getCustomerState(token);
+      String customerId = jwtService.getCustomerId(token);
+      request.setAttribute("customerId", customerId);
 
       if (CustomerStatus.PENDING.name().equals(state)) {
         if (isAllowedByObnUri(request.getRequestURI())) {
