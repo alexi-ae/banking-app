@@ -1,5 +1,8 @@
 package com.alexiae.banking.service.impl;
 
+import com.alexiae.banking.exception.ApiRestException;
+import com.alexiae.banking.exception.ErrorReason;
+import com.alexiae.banking.exception.ErrorSource;
 import com.alexiae.banking.model.dto.UserDto;
 import com.alexiae.banking.service.UserService;
 import java.util.ArrayList;
@@ -26,7 +29,8 @@ public class CustomUserDetailsService implements UserDetailsService {
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     UserDto user = userService.findByUsername(username);
     if (Objects.isNull(user)) {
-      throw new UsernameNotFoundException("Usuario no encontrado: " + username);
+      throw ApiRestException.builder().reason(ErrorReason.BAD_REQUEST)
+          .source(ErrorSource.BUSINESS_SERVICE).build();
     }
     List<GrantedAuthority> roles = new ArrayList<>();
     roles.add(new SimpleGrantedAuthority("USER"));

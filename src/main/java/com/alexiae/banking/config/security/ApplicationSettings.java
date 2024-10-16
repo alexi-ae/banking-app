@@ -1,5 +1,8 @@
 package com.alexiae.banking.config.security;
 
+import com.alexiae.banking.exception.ApiRestException;
+import com.alexiae.banking.exception.ErrorReason;
+import com.alexiae.banking.exception.ErrorSource;
 import com.alexiae.banking.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +14,6 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -26,7 +28,9 @@ public class ApplicationSettings {
   @Bean
   public UserDetailsService userDetailsService() {
     return username -> repository.findByEmail(username)
-        .orElseThrow(() -> new UsernameNotFoundException("User Not Found"));
+        .orElseThrow(() -> ApiRestException.builder()
+            .reason(ErrorReason.USER_NOT_FOUND)
+            .source(ErrorSource.BUSINESS_SERVICE).build());
   }
 
   @Bean

@@ -1,5 +1,8 @@
 package com.alexiae.banking.config.security;
 
+import com.alexiae.banking.exception.ApiRestException;
+import com.alexiae.banking.exception.ErrorReason;
+import com.alexiae.banking.exception.ErrorSource;
 import com.alexiae.banking.model.enums.CustomerStatus;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -55,8 +58,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
           }
         } else {
-          response.setStatus(HttpServletResponse.SC_FORBIDDEN); // Denegar acceso
-          return;
+          throw ApiRestException.builder()
+              .reason(ErrorReason.UNAUTHORIZED)
+              .source(ErrorSource.REST_CONTROLLER)
+              .build();
         }
       }
 

@@ -1,6 +1,9 @@
 package com.alexiae.banking.facede;
 
 import com.alexiae.banking.config.security.JwtService;
+import com.alexiae.banking.exception.ApiRestException;
+import com.alexiae.banking.exception.ErrorReason;
+import com.alexiae.banking.exception.ErrorSource;
 import com.alexiae.banking.model.api.JwtRequest;
 import com.alexiae.banking.model.api.JwtResponse;
 import com.alexiae.banking.model.entity.Customer;
@@ -46,7 +49,8 @@ public class AuthFacade {
     } catch (DisabledException e) {
       throw new Exception("USER_DISABLED", e);
     } catch (BadCredentialsException e) {
-      throw new BadCredentialsException("INVALID_CREDENTIALS", e);
+      throw ApiRestException.builder().reason(ErrorReason.AUTHENTICATION_FAILED)
+          .source(ErrorSource.BUSINESS_SERVICE).build();
     }
   }
 }

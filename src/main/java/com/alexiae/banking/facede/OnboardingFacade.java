@@ -1,7 +1,9 @@
 package com.alexiae.banking.facede;
 
 import com.alexiae.banking.config.security.JwtService;
-import com.alexiae.banking.exception.UserDuplicateException;
+import com.alexiae.banking.exception.ApiRestException;
+import com.alexiae.banking.exception.ErrorReason;
+import com.alexiae.banking.exception.ErrorSource;
 import com.alexiae.banking.model.api.ContactRequest;
 import com.alexiae.banking.model.api.ContactValidateRequest;
 import com.alexiae.banking.model.api.CreateRequest;
@@ -58,7 +60,8 @@ public class OnboardingFacade {
   public void register(CreateRequest request) {
     UserDto userDto = userService.findByUsername(request.getEmail());
     if (Objects.nonNull(userDto)) {
-      throw new UserDuplicateException("Usuario ya existe!");
+      throw ApiRestException.builder().reason(ErrorReason.USER_ALREADY_EXISTS)
+          .source(ErrorSource.BUSINESS_SERVICE).build();
     }
 
     User user = userService.create(toUser(request));
