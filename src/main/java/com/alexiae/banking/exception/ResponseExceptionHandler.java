@@ -1,5 +1,6 @@
 package com.alexiae.banking.exception;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import java.util.Collections;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,23 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
                     : Collections.singletonList(ex.getMessage()))
             .build(),
         ex.getReason().getHttpStatus(),
+        request);
+  }
+
+  @ExceptionHandler({ExpiredJwtException.class})
+  public ResponseEntity<Object> handleExpiredJwtException(ExpiredJwtException ex,
+      WebRequest request) {
+    return buildResponseEntity(
+        ErrorResponse.builder()
+            .code(ErrorReason.UNAUTHORIZED.getErrorCode())
+            .reason(ErrorReason.UNAUTHORIZED)
+            .source(ErrorSource.BUSINESS_SERVICE)
+            .errors(
+                ex.getMessage() == null
+                    ? Collections.emptyList()
+                    : Collections.singletonList(ex.getMessage()))
+            .build(),
+        ErrorReason.UNAUTHORIZED.getHttpStatus(),
         request);
   }
 

@@ -3,7 +3,9 @@ package com.alexiae.banking.exception;
 import com.alexiae.banking.exception.utils.ObjectMapperUtils;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.List;
+import lombok.ToString;
 
+@ToString
 public class ErrorResponse {
 
   private String code;
