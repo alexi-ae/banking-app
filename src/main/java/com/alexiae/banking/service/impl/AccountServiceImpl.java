@@ -20,7 +20,6 @@ public class AccountServiceImpl extends CRUDImpl<Account, Long> implements Accou
 
   @Override
   public boolean existByAccountNumber(String accountNumber) {
-
     return accountRepository.existsByNumber(accountNumber);
   }
 
@@ -28,5 +27,10 @@ public class AccountServiceImpl extends CRUDImpl<Account, Long> implements Accou
   public Account getByAccountNumber(String accountNumber) {
     return accountRepository.getAccountByNumber(accountNumber)
         .orElseThrow(() -> new RuntimeException("Cuenta no encontrada"));
+  }
+
+  @Override
+  public boolean existsByIdAndCustomerId(Long accountId, Long customerId) {
+    return accountRepository.existsByIdAndCustomerId(accountId, customerId);
   }
 }

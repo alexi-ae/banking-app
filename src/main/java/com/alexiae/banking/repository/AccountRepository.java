@@ -8,4 +8,6 @@ public interface AccountRepository extends GenericRepository<Account, Long> {
   boolean existsByNumber(String accountNumber);
 
   Optional<Account> getAccountByNumber(String accountNumber);
+
+  boolean existsByIdAndCustomerId(Long accountId, Long customerId);
 }
